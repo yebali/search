@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test_db;MODE=POSTGRESQL
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+open-api:
+  naver:
+    url: https://openapi.naver.com/v1/search
+    client-id: ${NAVER_CLIENT_ID:xzHScQ0zpE1rAGoAs9mm}
+    client-secret: ${NAVER_CLIENT_SECRET:Z2_plh1IL2}
