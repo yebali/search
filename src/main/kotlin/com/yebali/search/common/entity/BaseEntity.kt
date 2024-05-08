@@ -14,4 +14,5 @@ open class BaseEntity(
     val createdAt: OffsetDateTime = OffsetDateTime.now(),
     @LastModifiedBy
     val modifiedAt: OffsetDateTime = OffsetDateTime.now(),
+    val deletedAt: OffsetDateTime? = null,
 )
