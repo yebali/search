@@ -1,7 +1,6 @@
 package com.yebali.search.config
 
 import feign.RequestInterceptor
-import feign.RequestTemplate
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.context.annotation.Bean
@@ -17,11 +16,9 @@ class FeignClientConfiguration(
 ) {
     @Bean
     fun requestInterceptor(): RequestInterceptor {
-        return object : RequestInterceptor {
-            override fun apply(template: RequestTemplate) {
-                template.header("X-Naver-Client-Id", naverClientId)
-                template.header("X-Naver-Client-Secret", naverClientSecret)
-            }
+        return RequestInterceptor { template ->
+            template.header("X-Naver-Client-Id", naverClientId)
+            template.header("X-Naver-Client-Secret", naverClientSecret)
         }
     }
 }
