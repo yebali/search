@@ -1,9 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.TimeZone
 
 plugins {
     id("org.springframework.boot") version "3.2.4"
     id("io.spring.dependency-management") version "1.1.4"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    id("com.google.cloud.tools.jib") version "3.4.2"
     kotlin("jvm") version "1.9.23"
     kotlin("plugin.spring") version "1.9.23"
     kotlin("plugin.jpa") version "1.9.23"
@@ -13,7 +17,7 @@ plugins {
 extra["springCloudVersion"] = "2023.0.0"
 
 group = "com.yebali"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -70,4 +74,19 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+val now =
+    SimpleDateFormat("yyyyMMdd'T'HHmmss")
+        .apply { timeZone = TimeZone.getTimeZone("Asia/Seoul") }
+        .format(Date())
+
+jib {
+    from {
+        image = "amazoncorretto:17-alpine-jdk"
+    }
+    to {
+        image = "317383049045.dkr.ecr.ap-northeast-2.amazonaws.com/search"
+        tags = setOf("latest", "${rootProject.name}-$now")
+    }
 }
