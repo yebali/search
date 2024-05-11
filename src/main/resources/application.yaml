@@ -7,8 +7,14 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
 external-api:
   naver:
     url: https://openapi.naver.com/v1/search
-    client-id: ${NAVER_CLIENT_ID:xzHScQ0zpE1rAGoAs9mm}
+    client-id: ${NAIVER_CLIENT_ID:xzHScQ0zpE1rAGoAs9mm}
     client-secret: ${NAVER_CLIENT_SECRET:Z2_plh1IL2}
